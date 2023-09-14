@@ -5,14 +5,20 @@ import { NextResponse } from "next/server";
 
 export const GET = async (request) => {
   readDB();
-
-  // return NextResponse.json(
-  //   {
-  //     ok: false,
-  //     message: `Room is not found`,
-  //   },
-  //   { status: 404 }
-  // );
+  const roomId = request.nextUrl.searchParams.get("roomId");
+  const parseResult = zStudentGetParam.safeParse({
+    roomId,
+  });
+  const foundRoomId = DB.rooms.find((std) => std.roomId === body.roomId);
+  if (!foundRoomId) {
+    return NextResponse.json(
+      {
+        ok: false,
+        message: `Room is not found`,
+      },
+      { status: 404 }
+    );
+  }
 };
 
 export const POST = async (request) => {
